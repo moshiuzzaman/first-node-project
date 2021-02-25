@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/first-project', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
+// define order Schema
 const orderSchema = new mongoose.Schema({
     productId: {
         type: String,
@@ -24,5 +25,6 @@ const orderSchema = new mongoose.Schema({
         default: Date.now
     },
 })
+
 const orderModel = mongoose.model('orders', orderSchema);
 module.exports=orderModel;

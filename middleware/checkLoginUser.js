@@ -1,12 +1,18 @@
+
+const jwt = require('jsonwebtoken');
+// create middleware for check user from jwt token
 const checkLoginUser = (req, res, next) => {
     const token =req.cookies.jwt
-    try {
-        var decoded = jwt.verify(token, 'loginToken');
-    } catch (err) {
+    const decoded = jwt.decode(token);
+    if(typeof token!=="undefined"){
+        console.log('got token')
+        req.userId = decoded.userId;
+        req.role = decoded.role
+        next()
+    }else{
         console.log('you have to login first')
-        res.redirect('/')
+        res.sendStatus(403)
     }
-    next()
+    
 }
-
 module.exports=checkLoginUser;

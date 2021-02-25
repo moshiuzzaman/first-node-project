@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+/* GET logout  */
 router.get('/', function(req, res, next) {
   res.clearCookie('jwt')
-  res.status(200).redirect('/')
+  res.sendStatus(200).end()
 });
 
 module.exports = router;

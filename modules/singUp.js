@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/first-project', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
+// define users Schema
 const usersSchema = new mongoose.Schema({
        name:{
            type:String,

@@ -11,14 +11,13 @@ router.post('/', function (req, res, next) {
     const userDetails = new usersModule({
         name:name, 
         email:email, 
-        role:role, 
+        role:role.toLowerCase(), 
         password:password
     })
     userDetails.save((err,doc)=>{
         if (err) throw err
-        // res.render('index',{title:'singup rendered'})
         console.log('successfully registered')
-        res.status(200).end();
+        res.sendStatus(200).end();
     })
     
 });

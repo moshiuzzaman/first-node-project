@@ -12,6 +12,7 @@ var logoutRouter = require('./routes/logOut');
 var productsRouter = require('./routes/products');
 var addProductsRouter = require('./routes/addProducts');
 var orderRouter = require('./routes/order');
+var pendingOrderRouter = require('./routes/pandingOrders');
 var allOrderRouter = require('./routes/allOrders');
 var editOrderStatusRouter = require('./routes/editOrderStatus');
 
@@ -36,6 +37,7 @@ app.use('/logout', logoutRouter);
 app.use('/products', productsRouter);
 app.use('/addProducts', addProductsRouter);
 app.use('/order', orderRouter);
+app.use('/orders/pending', pendingOrderRouter);
 app.use('/allorders', allOrderRouter);
 app.use('/order/editstatus', editOrderStatusRouter);
 
