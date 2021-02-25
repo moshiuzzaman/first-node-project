@@ -2,13 +2,12 @@ var express = require('express');
 var router = express.Router();
 var usersModule = require('../modules/singUp')
 const bcrypt = require('bcrypt');
-const usersModel = require('../modules/singUp');
 var jwt = require('jsonwebtoken');
 
 router.post('/', function (req, res, next) {
     const email = req.body.email;
     let password = req.body.password
-    const checkUser = usersModel.findOne({ email: email })
+    const checkUser = usersModule.findOne({ email: email })
     checkUser.exec((err, data) => {
         if (err) throw err;
         const getId=data._id

@@ -3,6 +3,10 @@ const checkLoginUser = (req, res, next) => {
     try {
         var decoded = jwt.verify(token, 'loginToken');
     } catch (err) {
-        // err
+        console.log('you have to login first')
+        res.redirect('/')
     }
+    next()
 }
+
+module.exports=checkLoginUser;

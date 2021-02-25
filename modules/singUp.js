@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/users', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/first-project', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 const usersSchema = new mongoose.Schema({

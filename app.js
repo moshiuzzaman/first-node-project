@@ -9,8 +9,13 @@ var usersRouter = require('./routes/users');
 var singUpRouter = require('./routes/singup');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logOut');
-// var productsRouter = require('./routes/products');
+var productsRouter = require('./routes/products');
 var addProductsRouter = require('./routes/addProducts');
+var orderRouter = require('./routes/order');
+var allOrderRouter = require('./routes/allOrders');
+var editOrderStatusRouter = require('./routes/editOrderStatus');
+
+
 var app = express();
 
 // view engine setup
@@ -28,8 +33,11 @@ app.use('/users', usersRouter);
 app.use('/singup', singUpRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-// app.use('/products', productsRouter);
+app.use('/products', productsRouter);
 app.use('/addProducts', addProductsRouter);
+app.use('/order', orderRouter);
+app.use('/allorders', allOrderRouter);
+app.use('/order/editstatus', editOrderStatusRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

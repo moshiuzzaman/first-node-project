@@ -4,7 +4,6 @@ var usersModule = require('../modules/singUp')
 const bcrypt = require('bcrypt');
 /* GET home page. */
 router.post('/', function (req, res, next) {
-    res.render('index', { title: 'singup' });
     const name = req.body.name;
     const email = req.body.email;
     const role = req.body.role;
@@ -19,7 +18,9 @@ router.post('/', function (req, res, next) {
         if (err) throw err
         // res.render('index',{title:'singup rendered'})
         console.log('successfully registered')
+        res.status(200).end();
     })
+    
 });
 
 module.exports = router;
