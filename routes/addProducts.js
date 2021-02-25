@@ -20,7 +20,7 @@ router.post('/', checkLoginUser, function (req, res, next) {
     productsDetails.save((err, data) => {
       if (err) throw err;
       console.log('successfully added products');
-      res.sendStatus(200).end()
+      res.sendStatus(201).end()
     })
   } else {
     console.log('only super admin can access this api');

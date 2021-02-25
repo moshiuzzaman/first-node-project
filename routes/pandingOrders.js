@@ -15,7 +15,7 @@ router.get('/', checkLoginUser, function (req, res, next) {
         })
         res.sendStatus(200).end()
     } else {
-        console.log('user or super admin are not able for a order')
+        console.log('user or super admin are not able for access this page')
         res.sendStatus(403).end()
     }
 });

@@ -15,7 +15,7 @@ router.post('/', checkLoginUser, function (req, res, next) {
             if (err) throw err
             console.log('update successfully')
         })
-        res.sendStatus(200).end()
+        res.sendStatus(205).end()
     } else {
         console.log('only admin can access this api');
         res.sendStatus(403).end()

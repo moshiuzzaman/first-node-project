@@ -20,7 +20,7 @@ router.post('/', function (req, res, next) {
     userDetails.save((err,doc)=>{
         if (err) throw err
         console.log('successfully registered')
-        res.sendStatus(200).end();
+        res.sendStatus(201).end();
     })
     
 });

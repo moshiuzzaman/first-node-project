@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.clearCookie('jwt');
   console.log('logout successfully')
-  res.sendStatus(200).end()
+  res.sendStatus(202).end()
 });
 
 module.exports = router;

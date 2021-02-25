@@ -20,7 +20,7 @@ router.post('/', function (req, res, next) {
             var token = jwt.sign({ userId: getId, role:data.role }, 'loginToken');
             res.cookie("jwt", token)
             console.log('login successfully')
-            res.sendStatus(200).end()
+            res.sendStatus(202).end()
         } else {
             console.log('login field');
             res.sendStatus(403).end()

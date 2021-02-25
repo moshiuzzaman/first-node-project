@@ -23,6 +23,4 @@ router.get('/', checkLoginUser, function (req, res, next) {
 
 });
 
-
-
 module.exports = router;
