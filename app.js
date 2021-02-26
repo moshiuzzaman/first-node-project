@@ -14,6 +14,8 @@ var orderRouter = require('./routes/order');
 var pendingOrderRouter = require('./routes/pendingOrders');
 var allOrderRouter = require('./routes/allOrders');
 var editOrderStatusRouter = require('./routes/editOrderStatus');
+var updateUserRouter = require('./routes/updateUser');
+var deleteUserRouter = require('./routes/deleteUser');
 
 
 var app = express();
@@ -39,6 +41,8 @@ app.use('/order', orderRouter);
 app.use('/orders/pending', pendingOrderRouter);
 app.use('/all-orders', allOrderRouter);
 app.use('/order/edit-status', editOrderStatusRouter);
+app.use('/users/update-user', updateUserRouter);
+app.use('/users/delete-user', deleteUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

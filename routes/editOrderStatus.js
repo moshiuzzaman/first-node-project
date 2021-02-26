@@ -13,7 +13,7 @@ router.post('/', checkLoginUser, function (req, res, next) {
         const updateStatus = orderModule.findByIdAndUpdate(orderId, { status: status })
         updateStatus.exec((err, doc) => {
             if (err) throw err
-            console.log('update successfully')
+            console.log('order status update successfully')
         })
         res.sendStatus(205).end()
     } else {
