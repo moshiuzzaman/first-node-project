@@ -8,21 +8,26 @@ router.post('/', function (req, res, next) {
     const email = req.body.email;
     const role = req.body.role;
     // password bcrypt
-    let password = bcrypt.hashSync(req.body.password,10)
+    let password = bcrypt.hashSync(req.body.password, 10)
     // create user object
     const userDetails = new usersModule({
-        name:name, 
-        email:email, 
-        role:role.toLowerCase(), 
-        password:password
+        name: name,
+        email: email,
+        role: role,
+        password: password
     })
     // Save user in database
-    userDetails.save((err,doc)=>{
-        if (err) throw err
-        console.log('successfully registered')
-        res.sendStatus(201).end();
+    userDetails.save((err, doc) => {
+        if (err) {
+            console.log(err.message)
+            res.sendStatus(400).end()
+        } else {
+            console.log(`Wow "${doc.name}" you successfully registered.`)
+            res.sendStatus(202).end()
+        }
+
     })
-    
+
 });
 
 module.exports = router;
