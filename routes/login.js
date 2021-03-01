@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 // Post user email and password for login
-router.post('/', function (req, res, next) {
+router.get('/', function (req, res, next) {
     const email = req.body.email;
     let password = req.body.password
     // Find user by user email in database

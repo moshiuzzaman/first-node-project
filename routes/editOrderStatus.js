@@ -4,7 +4,7 @@ var orderModule = require('../modules/order');
 const checkLoginUser = require('../middleware/checkLoginUser')
 
 // Post order status
-router.post('/', checkLoginUser, function (req, res, next) {
+router.patch('/', checkLoginUser, function (req, res, next) {
     const orderId = req.body.orderId;
     const status = req.body.status
     // check user role

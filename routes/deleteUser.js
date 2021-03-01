@@ -4,7 +4,7 @@ var usersModule = require('../modules/singUp')
 const checkLoginUser = require('../middleware/checkLoginUser')
 
 /* GET Delete. */
-router.get('/', checkLoginUser, function (req, res, next) {
+router.delete('/', checkLoginUser, function (req, res, next) {
     const userRole = req.role;
     const userId = req.body.userId
     // check user role

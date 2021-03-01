@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 
 
 /* Post User Update. */
-router.post('/', checkLoginUser, function (req, res, next) {
+router.patch('/', checkLoginUser, function (req, res, next) {
     const userId = req.userId
     const name=req.body.name;
     const email=req.body.email;
