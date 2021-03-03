@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/first-project', { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
 
 // define order Schema
 const orderSchema = new mongoose.Schema({

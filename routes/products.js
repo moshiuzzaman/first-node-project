@@ -1,17 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var productsModule = require('../modules/addProducts')
-const checkLoginUser=require('../middleware/checkLoginUser')
+const checkLoginUser = require('../middleware/checkLoginUser')
 
 // Get products 
-router.get('/',checkLoginUser, function (req, res, next) {
+router.get('/', checkLoginUser, async (req, res, next) => {
     // Find all products from database
-    const products=productsModule.find()
-    products.exec((err,data)=>{
-        if (err) throw err;
-        console.log(data)     
-    })
-    res.sendStatus(200).end()
+    try {
+        const products = await productsModule.find()
+        res.status(200).json(products)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
 });
 
 module.exports = router;

@@ -11,11 +11,21 @@ var logoutRouter = require('./routes/logOut');
 var productsRouter = require('./routes/products');
 var addProductsRouter = require('./routes/addProducts');
 var orderRouter = require('./routes/order');
-var pendingOrderRouter = require('./routes/pendingOrders');
+var pendingOrdersRouter = require('./routes/pendingOrders');
 var allOrderRouter = require('./routes/allOrders');
 var editOrderStatusRouter = require('./routes/editOrderStatus');
 var updateUserRouter = require('./routes/updateUser');
 var deleteUserRouter = require('./routes/deleteUser');
+
+// Db connction
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/first-project', { 
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true 
+});
+const db = mongoose.connection;
 
 
 var app = express();
@@ -38,7 +48,7 @@ app.use('/logout', logoutRouter);
 app.use('/products', productsRouter);
 app.use('/add-products', addProductsRouter);
 app.use('/order', orderRouter);
-app.use('/orders/pending', pendingOrderRouter);
+app.use('/orders/pending', pendingOrdersRouter);
 app.use('/all-orders', allOrderRouter);
 app.use('/order/edit-status', editOrderStatusRouter);
 app.use('/users/update-user', updateUserRouter);

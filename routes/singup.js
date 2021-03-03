@@ -1,33 +1,21 @@
 var express = require('express');
 var router = express.Router();
-var usersModule = require('../modules/singUp')
+var usersModule = require('../modules/User')
 const bcrypt = require('bcrypt');
 /* post sing up */
-router.post('/', function (req, res, next) {
-    const name = req.body.name;
-    const email = req.body.email;
-    const role = req.body.role;
-    // password bcrypt
-    let password = bcrypt.hashSync(req.body.password, 10)
+router.post('/', async (req, res, next) => {
     // create user object
     const userDetails = new usersModule({
-        name: name,
-        email: email,
-        role: role,
-        password: password
+        ...req.body,
+        password: bcrypt.hashSync(req.body.password, 10)
     })
     // Save user in database
-    userDetails.save((err, doc) => {
-        if (err) {
-            console.log(err.message)
-            res.sendStatus(400).end()
-        } else {
-            console.log(`Wow "${doc.name}" you successfully registered.`)
-            res.sendStatus(202).end()
-        }
-
-    })
-
+    try {
+        await userDetails.save()
+        res.status(202).send(`Wow "${req.body.name}" you successfully registered.`)
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
 });
 
 module.exports = router;

@@ -2,31 +2,22 @@ var express = require('express');
 var router = express.Router();
 var productsModule = require('../modules/addProducts')
 const checkLoginUser = require('../middleware/checkLoginUser')
+const checkRole = require('../middleware/checkingRole')
 
 // Post products
-router.post('/', checkLoginUser, function (req, res, next) {
-  const productName = req.body.productName;
-  const quantity = req.body.quantity;
+router.post('/', checkLoginUser, checkRole.checkSuperAdmin, async (req, res, next) => {
 
-  // Check user role. 
-  if (req.role === "super admin") {
-    // create products object
-    const productsDetails = new productsModule({
-      productName,
-      quantity
-    })
-
-    // save products in database
-    productsDetails.save((err, data) => {
-      if (err) throw err;
+  // create products object
+  const productsDetails = new productsModule(req.body)
+  // save products in database
+  try {
+    const addProducts=await productsDetails.save()
       console.log('successfully added products');
-      res.sendStatus(201).end()
-    })
-  } else {
-    console.log('only super admin can access this api');
-    res.sendStatus(403).end()
-  }
+      res.status(200).json(addProducts)
 
+  } catch (error) {
+    res.status(500).send(error)
+  }
 });
 
 module.exports = router;

@@ -1,30 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var orderModule = require('../modules/order')
+var productsModule = require('../modules/addProducts')
 const checkLoginUser = require('../middleware/checkLoginUser')
+const checkRole = require('../middleware/checkingRole')
 
 // Post order in database
-router.post('/', checkLoginUser, function (req, res, next) {
-    const productId = req.body.productId;
-    const quantity = req.body.quantity;
-// check user role
-    if (req.role === "user") {
-        // create order object
-        const orderDetails = new orderModule({
-            productId,
-            quantity,
-            userId: req.userId
-        })
-        // Save order in database
-        orderDetails.save((err, data) => {
-            if (err) throw err;
-            console.log('Ordered Successfully');
-            res.status(200).end()
-
-        })
-    }else{
-        console.log('admin or super admin are not able for a order')
-        res.sendStatus(403).end()
+router.post('/', checkLoginUser, checkRole.checkUser, async (req, res, next) => {
+    // create order object
+    const orderDetails = new orderModule({
+        ...req.body,
+        userId: req.userId
+    })
+    try {
+        await orderDetails.save()
+        res.status(200).send('Ordered Successfully')
+    } catch (error) {
+        res.status(500).send(error)
     }
 });
 

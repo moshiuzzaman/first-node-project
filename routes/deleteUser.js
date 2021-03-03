@@ -1,32 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var usersModule = require('../modules/singUp')
+var usersModule = require('../modules/User')
 const checkLoginUser = require('../middleware/checkLoginUser')
+const checkRole = require('../middleware/checkingRole')
+
 
 /* GET Delete. */
-router.delete('/', checkLoginUser, function (req, res, next) {
-    const userRole = req.role;
+router.delete('/', checkLoginUser, checkRole.checkSuperAdmin, async (req, res, next) => {
     const userId = req.body.userId
-    // check user role
-    if (userRole === "super admin") {
-        // find user by id and delete
-        const deleteUser = usersModule.findByIdAndDelete(userId, (err, doc) => {
-            if (err) {
-                console.log(err)
-                res.sendStatus(204).end()
-            } else if(doc===null) {
-                console.log('userId is not valid/already deleted')
-                res.sendStatus(204).end()
-            }else{
-                console.log('deleted successfully' + doc)
-                res.sendStatus(200).end()
-            }
-        })
-
-    } else {
-        console.log('admin or user are not able to access this page')
-        res.sendStatus(403).end()
+    // find user by id and delete
+    try {
+        const deleteUser = await usersModule.findByIdAndDelete(userId)
+        if (deleteUser === null) {
+            res.send('userId is not valid/already deleted')
+        }
+        res.status(200).json()
+    } catch (error) {
+        res.status(500).send(error)
     }
 });
 
 module.exports = router;
+

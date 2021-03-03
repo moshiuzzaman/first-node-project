@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/first-project', { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
 
 // define users Schema
 const usersSchema = new mongoose.Schema({
@@ -16,6 +14,7 @@ const usersSchema = new mongoose.Schema({
          required: [true, 'You must have to enter your Email Address.'],
          unique: true,
          lowercase: true,
+         index :true
        },
         role:{
            type:String,
