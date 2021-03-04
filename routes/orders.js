@@ -11,8 +11,8 @@ router.get('/',
     checkLoginUser,
     checkRole.checkSuperAdmin,
     async (req, res, next) => {
-        // find all orders from database
         try {
+            // find all orders from database
             const orders = await orderModule.find()
             res.status(200).json(orders)
 
@@ -61,8 +61,8 @@ router.get('/pending-orders',
     checkLoginUser,
     checkRole.checkAdmin,
     async (req, res, next) => {
-        // Find pending order from database 
         try {
+            // Find pending order from database 
             const pendingOrders = await orderModule.find({ 'status': 'pending' })
             res.status(200).json(pendingOrders)
         } catch (error) {

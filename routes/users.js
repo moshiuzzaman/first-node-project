@@ -8,13 +8,13 @@ const checkRole = require('../middleware/checkingRole')
 
 /* post sing up */
 router.post('/create-user', async (req, res, next) => {
-    // create user object
-    const userDetails = new usersModule({
-        ...req.body,
-        password: bcrypt.hashSync(req.body.password, 10)
-    })
-    // Save user in database
     try {
+        // create user object
+        const userDetails = new usersModule({
+            ...req.body,
+            password: bcrypt.hashSync(req.body.password, 10)
+        })
+        // Save user in database
         await userDetails.save()
         res.status(202).send(`Wow "${req.body.name}" you successfully registered.`)
     } catch (error) {

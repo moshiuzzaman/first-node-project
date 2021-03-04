@@ -8,8 +8,8 @@ const axios = require("axios");
 router.get('/',
     checkLoginUser,
     async (req, res, next) => {
-        // Find all products from database
         try {
+            // Find all products from database
             const products = await Products.find()
             res.status(200).json(products)
         } catch (error) {
