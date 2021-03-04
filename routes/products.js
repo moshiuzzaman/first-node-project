@@ -15,7 +15,6 @@ router.get('/',
         } catch (error) {
             res.status(500).send(error)
         }
-
     });
 
 
@@ -25,11 +24,10 @@ router.post(
     checkLoginUser,
     checkRole.checkSuperAdmin,
     async (req, res, next) => {
-
-        // create products object
-        const productsDetails = new Products(req.body)
-        // save products in database
         try {
+            // create products object
+            const productsDetails = new Products(req.body)
+            // save products in database
             const addProducts = await productsDetails.save()
             console.log('successfully added products');
             res.status(200).json(addProducts)

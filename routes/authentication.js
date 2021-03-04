@@ -3,13 +3,13 @@ var router = express.Router();
 var usersModule = require('../Schemas/userSchema')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 // Post user email and password for login
 router.get('/login', async (req, res, next) => {
-    const email = req.body.email;
-    let password = req.body.password
-
     try {
+        const email = req.body.email;
+        let password = req.body.password
         // Find user by user email 
         const findUser = await usersModule.findOne({ email })
         if (findUser === null) {
@@ -21,7 +21,7 @@ router.get('/login', async (req, res, next) => {
             if (bcrypt.compareSync(password, getPassword)) {
 
                 // Set jwt token in cookie
-                var token = jwt.sign({ userId: getId, role: findUser.role }, 'loginToken');
+                var token = jwt.sign({ userId: getId, role: findUser.role }, process.env.SECRET_TOKEN);
                 res.cookie("jwt", token)
                 res.status(202).send(`login successfully as: ${findUser.role}`)
             } else {
@@ -34,9 +34,9 @@ router.get('/login', async (req, res, next) => {
 });
 
 /* GET logout  */
-router.get('/logout', (req, res, next)=> {
+router.get('/logout', (req, res, next) => {
     res.clearCookie('jwt');
     res.status(202).send('logout successfully')
-  });
+});
 
 module.exports = router;
