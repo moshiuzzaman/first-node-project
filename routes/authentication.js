@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var usersModule = require('../modules/User')
+var usersModule = require('../Schemas/userSchema')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 // Post user email and password for login
-router.get('/', async (req, res, next) => {
+router.get('/login', async (req, res, next) => {
     const email = req.body.email;
     let password = req.body.password
 
@@ -32,5 +32,11 @@ router.get('/', async (req, res, next) => {
         res.status(500).send(error)
     }
 });
+
+/* GET logout  */
+router.get('/logout', (req, res, next)=> {
+    res.clearCookie('jwt');
+    res.status(202).send('logout successfully')
+  });
 
 module.exports = router;

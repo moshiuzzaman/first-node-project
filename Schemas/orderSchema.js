@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
     productId: {
         type: String,
-        required: true
+        required: true,
+        index: true,
     },
     quantity: {
         type: Number,
@@ -16,13 +17,15 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'pending'
+        default: 'pending',
+        index: true,
     },
-    date:{
+    date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        index: true,
     },
 })
 
 const orderModel = mongoose.model('orders', orderSchema);
-module.exports=orderModel;
+module.exports = orderModel;

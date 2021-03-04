@@ -5,6 +5,7 @@ const usersSchema = new mongoose.Schema({
        name:{
            type:String,
            required: [true, 'You must have to enter your name.'],
+           index:true,
         },
         email:  {
          type: String,
@@ -20,6 +21,7 @@ const usersSchema = new mongoose.Schema({
            type:String,
            required: [true, 'You  must have to enter your role .'],
            lowercase: true,
+           index:true,
         },
         
         password:{
