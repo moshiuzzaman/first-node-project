@@ -6,14 +6,19 @@ var jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 // Post user email and password for login
-router.get('/login', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
+    console.log('object');
+    console.log(req.body.userObj.password);
     try {
-        const email = req.body.email;
-        let password = req.body.password
+        const email = req.body.userObj.email;
+        let password = req.body.userObj.password
+        console.log(email);
         // Find user by user email 
         const findUser = await usersModule.findOne({ email })
         if (findUser === null) {
-            res.status(403).send('Please send valid email')
+            res.send({
+                    "message":'Please send valid email'
+                })
         } else {
             const getId = findUser._id
             const getPassword = findUser.password
@@ -23,9 +28,18 @@ router.get('/login', async (req, res, next) => {
                 // Set jwt token in cookie
                 var token = jwt.sign({ userId: getId, role: findUser.role }, process.env.SECRET_TOKEN);
                 res.cookie("jwt", token)
-                res.status(202).send(`login successfully as: ${findUser.role}`)
+                res.cookie('__session', token);
+                res.status(202).send({
+                    isLogIn:true,
+                    token: token,
+                    "user":findUser,
+                    "message":`login successfully as: ${findUser.role}`,
+                    code:202
+                })
             } else {
-                res.status(403).send('your Password is not valid')
+               res.send({
+                    "message":`User password Is not Valid`
+               })    
             }
         }
     } catch (error) {

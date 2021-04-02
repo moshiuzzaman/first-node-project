@@ -3,7 +3,23 @@ const checkUser = (req, res, next) => {
     if (req.role === "user") {
         next()
     } else {
-        res.status(403).send(`You are a ${req.role}, only user can access this api`)
+        res.send({
+            message:`You are a ${req.role}, Please LogIn as User and try again`,
+            authorized:false
+        });
+    }
+}
+
+
+// check  user role is "admin" or "Super admin" or not
+const checkAdminOrSuperAdmin = (req, res, next) => {
+    if (req.role === "admin" || req.role === "super admin") {
+        next()
+    } else {
+         res.send({
+            message:`You are a ${req.role}, Please LogIn as Admin or super admin and try again`,
+            authorized:false
+        });
     }
 }
 
@@ -12,7 +28,10 @@ const checkAdmin = (req, res, next) => {
     if (req.role === "admin") {
         next()
     } else {
-        res.status(403).send(`You are a ${req.role}, only admin can access this api`)
+         res.send({
+            message:`You are a ${req.role}, Please LogIn as Admin and try again`,
+            authorized:false
+        });
     }
 }
 
@@ -21,7 +40,10 @@ const checkSuperAdmin = (req, res, next) => {
     if (req.role === "super admin") {
         next()
     } else {
-        res.status(403).send(`You are a ${req.role}, only Super admin can access this api`)
+         res.send({
+            message:`You are a ${req.role}, Please LogIn as Super Admin and try again`,
+            authorized:false
+        });
     }
 }
 
@@ -29,3 +51,4 @@ const checkSuperAdmin = (req, res, next) => {
 module.exports.checkUser = checkUser;
 module.exports.checkSuperAdmin = checkSuperAdmin;
 module.exports.checkAdmin = checkAdmin;
+module.exports.checkAdminOrSuperAdmin = checkAdminOrSuperAdmin;

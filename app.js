@@ -3,6 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser')
+var cors = require('cors')
+
+
 
 // require all routes from routes folder
 var usersRouter = require('./routes/users');
@@ -15,6 +19,7 @@ const connect = require("./dbConnection/dbConnection");
 
 
 var app = express();
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

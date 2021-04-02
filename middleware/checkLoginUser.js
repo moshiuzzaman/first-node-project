@@ -4,11 +4,15 @@ require('dotenv').config()
 
 // create middleware for check login user from jwt token
 const checkLoginUser = (req, res, next) => {
-    const token = req.cookies.jwt
+   const token= req?.headers["token"];
+   console.log(token);
     if (typeof token !== "undefined") {
-        jwt.verify(token, "loginToken", (err, user) => {
+        jwt.verify(token, process.env.SECRET_TOKEN, (err, user) => {
             if (err) {
-                res.status(401).send("Invalid User Token");
+                res.send({
+                    message:"You Have to login first",
+                    authorized:false
+                });
             } else {
                 req.userId = user.userId;
                 req.role = user.role
